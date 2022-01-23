@@ -1,5 +1,6 @@
 {
   "name": "yuichiyasui.github.io",
+  "homepage": "https://yuichiyasui.github.io",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
