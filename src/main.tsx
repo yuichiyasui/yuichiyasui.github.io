@@ -1,9 +1,9 @@
-import React, { Suspense } from "react";
-import ReactDOM from "react-dom";
-import { BrowserRouter } from "react-router-dom";
+import React, { Suspense } from 'react';
+import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 
-import "~/styles/index.css";
-import { Router } from "~/router";
+import '~/styles/tailwind.css';
+import { Router } from '~/router';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -13,5 +13,5 @@ ReactDOM.render(
       </Suspense>
     </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
