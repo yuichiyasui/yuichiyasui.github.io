@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
-export const Top = ()=> {
-  const [count, setCount] = useState(0)
+export const Top = () => {
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -36,5 +36,5 @@ export const Top = ()=> {
         </p>
       </header>
     </div>
-  )
-}
+  );
+};
