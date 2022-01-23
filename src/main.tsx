@@ -1,11 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import '@/styles/index.css'
-import {App} from '@/pages/App'
+import React, { Suspense } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
+
+import "~/styles/index.css";
+import { Router } from "~/router";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Suspense fallback={<div>...Loading</div>}>
+        <Router />
+      </Suspense>
+    </BrowserRouter>
   </React.StrictMode>,
-  document.getElementById('root')
-)
+  document.getElementById("root")
+);
