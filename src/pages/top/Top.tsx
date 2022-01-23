@@ -1,7 +1,6 @@
 import { useState } from 'react'
-import './App.css'
 
-export const App = ()=> {
+export const Top = ()=> {
   const [count, setCount] = useState(0)
 
   return (
