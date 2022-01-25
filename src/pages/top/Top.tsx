@@ -1,8 +1,8 @@
 export const Top = () => {
   return (
-    <div>
-      <header className="bg-blue-900">
-        <p className="text-white">yuichiyasui</p>
+    <div className="bg-gray-200">
+      <header className="sticky top-0 w-full bg-gradient-to-br from-blue-900/90 via-sky-900/90 to-teal-800/90 py-3 px-5 shadow-sm backdrop-blur-sm">
+        <p className="font-bold tracking-wider text-white">yuichiyasui</p>
       </header>
       <main>
         <h1 className="font-bold">Profile</h1>
