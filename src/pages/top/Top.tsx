@@ -4,8 +4,17 @@ export const Top = () => {
       <header className="sticky top-0 w-full bg-gradient-to-br from-blue-900/90 via-sky-900/90 to-teal-800/90 py-3 px-5 shadow-sm backdrop-blur-sm">
         <p className="font-bold tracking-wider text-white">yuichiyasui</p>
       </header>
-      <main>
-        <h1 className="font-bold">Profile</h1>
+      <main className="mx-5 py-5 lg:mx-auto lg:w-[1024px]">
+        <h1 className="mb-4 font-bold">Profile</h1>
+        <div className="mx-auto mb-8 w-[50vw] max-w-[320px] overflow-hidden rounded-full shadow-md">
+          <img
+            width="320"
+            height="320"
+            src="/profile.jpg"
+            alt=""
+            className="h-auto w-full"
+          />
+        </div>
         <p>Yuichi Yasui</p>
         <p>
           派遣Webエンジニアです。(2019.10~)
