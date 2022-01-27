@@ -1,3 +1,7 @@
+import { ExternalLink } from '~/components/ExternalLink';
+import { GitHubIcon } from '~/components/icons/GitHub';
+import { TwitterIcon } from '~/components/icons/Twitter';
+
 const skills = [
   'JavaScript/TypeScript(Vue.js/React)',
   'HTML/CSS',
@@ -78,9 +82,23 @@ export const Top = () => {
 
           <section>
             <h2 className="mb-3 text-xl font-bold">SNS</h2>
-            <ul>
-              <li className="list-inside list-disc text-sm">Twitter</li>
-              <li className="list-inside list-disc text-sm">GitHub</li>
+            <ul className="flex">
+              <li className="mr-4">
+                <ExternalLink
+                  href="https://twitter.com/yassii_dev"
+                  ariaLabel="Twitter"
+                >
+                  <TwitterIcon />
+                </ExternalLink>
+              </li>
+              <li>
+                <ExternalLink
+                  href="https://github.com/yuichiyasui"
+                  ariaLabel="GitHub"
+                >
+                  <GitHubIcon />
+                </ExternalLink>
+              </li>
             </ul>
           </section>
         </div>
