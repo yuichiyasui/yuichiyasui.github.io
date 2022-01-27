@@ -22,8 +22,8 @@ export const Top = () => {
       <header className="sticky top-0 w-full bg-gradient-to-br from-blue-900/90 via-sky-900/90 to-teal-800/90 py-3 px-5 shadow-sm backdrop-blur-sm">
         <p className="font-bold tracking-wider text-white">yuichiyasui</p>
       </header>
-      <main className="mx-5 py-10 lg:mx-auto lg:w-[1024px]">
-        <div className="">
+      <main className="mx-5 py-12 lg:mx-auto lg:w-[1024px]">
+        <div className="sm:mx-auto sm:w-[600px]">
           <h1 className="mb-8 text-center text-4xl font-bold">Profile</h1>
           <div className="mx-auto mb-8 w-[50vw] max-w-[320px] overflow-hidden rounded-full shadow-md">
             <img
@@ -34,7 +34,7 @@ export const Top = () => {
               className="h-auto w-full"
             />
           </div>
-          <p className="mb-4 text-center text-lg">Yuichi Yasui</p>
+          <p className="mb-6 text-center text-lg">Yuichi Yasui</p>
           <p className="mb-10 text-sm">
             Webエンジニアです。(2019.10~)
             <br />
@@ -46,7 +46,7 @@ export const Top = () => {
             <ul className="mb-4">
               {skills.map((skill, index) => {
                 return (
-                  <li key={index} className="list-inside list-disc">
+                  <li key={index} className="list-inside list-disc text-sm">
                     {skill}
                   </li>
                 );
@@ -68,7 +68,7 @@ export const Top = () => {
             <ul>
               {hobbies.map((hobby, index) => {
                 return (
-                  <li key={index} className="list-inside list-disc">
+                  <li key={index} className="list-inside list-disc text-sm">
                     {hobby}
                   </li>
                 );
@@ -79,8 +79,8 @@ export const Top = () => {
           <section>
             <h2 className="mb-3 text-xl font-bold">SNS</h2>
             <ul>
-              <li className="list-inside list-disc">Twitter</li>
-              <li className="list-inside list-disc">GitHub</li>
+              <li className="list-inside list-disc text-sm">Twitter</li>
+              <li className="list-inside list-disc text-sm">GitHub</li>
             </ul>
           </section>
         </div>
