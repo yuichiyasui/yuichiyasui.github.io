@@ -1,3 +1,9 @@
+import { DefaultLayout } from '~/components/layouts/DefaultLayout';
+
 export const Calculation = () => {
-  return <div>hoge</div>;
+  return (
+    <DefaultLayout>
+      <div>hoge</div>
+    </DefaultLayout>
+  );
 };
