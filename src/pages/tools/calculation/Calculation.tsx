@@ -35,19 +35,19 @@ type State = {
   members: Map<MemberName, Price>;
   error: string;
 };
-const reducer = (draft: State, { payload, type }: Action) => {
-  switch (type) {
+const reducer = (draft: State, action: Action) => {
+  switch (action.type) {
     case "ADD_MEMBER":
-      draft.members.set(payload.name, 0);
+      draft.members.set(action.payload.name, 0);
       break;
     case "REMOVE_MEMBER":
-      draft.members.delete(payload.name);
+      draft.members.delete(action.payload.name);
       break;
     case "UPDATE_ERROR":
-      draft.error = payload.errorMessage;
+      draft.error = action.payload.errorMessage;
       break;
     case "UPDATE_MEMBER_PRICE":
-      draft.members.set(payload.name, payload.price);
+      draft.members.set(action.payload.name, action.payload.price);
       break;
   }
 };
