@@ -1,6 +1,6 @@
 import styles from "./Skeleton.module.css";
 
-type Props = {
+export type Props = {
   className: string;
 };
 
