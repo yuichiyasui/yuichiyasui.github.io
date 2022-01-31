@@ -1,24 +1,24 @@
-import { ExternalLink } from '~/components/ExternalLink';
-import { GitHubIcon } from '~/components/icons/GitHub';
-import { TwitterIcon } from '~/components/icons/Twitter';
-import { DefaultLayout } from '~/components/layouts/DefaultLayout';
+import { ExternalLink } from "~/components/ExternalLink";
+import { GitHubIcon } from "~/components/icons/GitHub";
+import { TwitterIcon } from "~/components/icons/Twitter";
+import { DefaultLayout } from "~/components/layouts/DefaultLayout";
 
 const skills = [
-  'JavaScript/TypeScript(Vue.js/React)',
-  'HTML/CSS',
-  'GraqhQL',
-  'Java(SpringBoot)',
-  'Ruby(Rails)',
+  "JavaScript/TypeScript(Vue.js/React)",
+  "HTML/CSS",
+  "GraqhQL",
+  "Java(SpringBoot)",
+  "Ruby(Rails)",
 ];
 
 const hobbies = [
-  '音楽鑑賞、ライブ',
-  'ラーメン',
-  'お酒',
-  'ランニング（2021年9月からスタート）',
-  '銭湯、サウナ',
-  'キャンプ',
-  'DIY',
+  "音楽鑑賞、ライブ",
+  "ラーメン",
+  "お酒",
+  "ランニング（2021年9月からスタート）",
+  "銭湯、サウナ",
+  "キャンプ",
+  "DIY",
 ];
 
 export const Top = () => {
