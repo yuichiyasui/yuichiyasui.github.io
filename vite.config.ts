@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path, { resolve } from "path";
@@ -14,5 +15,9 @@ export default defineConfig({
     rollupOptions: {
       input: [resolve(__dirname, "index.html"), resolve(__dirname, "404.html")],
     },
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
   },
 });
