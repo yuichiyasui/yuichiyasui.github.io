@@ -10,8 +10,8 @@ const sectionMap = {
   price: "price",
 };
 
-type MemberName = string;
-type Price = number;
+export type MemberName = string;
+export type Price = number;
 
 type AddMember = {
   type: "ADD_MEMBER";
