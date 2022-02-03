@@ -57,7 +57,7 @@ const initialState: State = {
   error: "",
 };
 
-export const Calculation = () => {
+export const DutchTreat = () => {
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
   const [member, setMember] = useState<string>("");
