@@ -33,7 +33,7 @@ export const dutchTreat = (state: Map<MemberName, Price>) => {
   const log: string[] = [];
   const copy = new Map(state);
   // 平均金額を出す
-  const [average, surplus] = getOutcomePerPerson(Array.from(copy.values()));
+  const [average] = getOutcomePerPerson(Array.from(copy.values()));
   // それぞれの差分を出す(差分がなければその人は計算から除外する)
   copy.forEach((value, key) => {
     const diff = value - average;
