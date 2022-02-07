@@ -76,4 +76,19 @@ describe("dutchTreat", () => {
     expect(result[1]).toBe("BさんからDさんに2500円渡す。");
     expect(result[2]).toBe("精算完了");
   });
+
+  test("割り勘する(余りが出る場合)", () => {
+    const state = new Map([
+      ["A", 4478],
+      ["B", 2340],
+      ["C", 678],
+      ["D", 555],
+    ]);
+    const result = dutchTreat(state);
+    expect(result[0]).toBe("DさんからAさんに1457円渡す。");
+    expect(result[1]).toBe("CさんからAさんに1009円渡す。");
+    expect(result[2]).toBe("CさんからBさんに325円渡す。");
+    expect(result[3]).toBe("Bさんの手元に3円余りました。");
+    expect(result[4]).toBe("精算完了");
+  });
 });

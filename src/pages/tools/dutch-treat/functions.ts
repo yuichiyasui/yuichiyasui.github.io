@@ -33,7 +33,7 @@ export const dutchTreat = (state: Map<MemberName, Price>) => {
   const log: string[] = [];
   const copy = new Map(state);
   // 平均金額を出す
-  const [average] = getOutcomePerPerson(Array.from(copy.values()));
+  const [average, surplus] = getOutcomePerPerson(Array.from(copy.values()));
   // それぞれの差分を出す(差分がなければその人は計算から除外する)
   copy.forEach((value, key) => {
     const diff = value - average;
@@ -45,7 +45,10 @@ export const dutchTreat = (state: Map<MemberName, Price>) => {
   while (copy.size !== 0) {
     // 差分の大きい人同士でやり取りする
     const [minPerson, maxPerson] = getMinMaxOutcomePersons(copy);
-    if (Math.abs(minPerson[1]) === Math.abs(maxPerson[1])) {
+    if (copy.size === 1) {
+      log.push(`${maxPerson[0]}さんの手元に${maxPerson[1]}円余りました。`);
+      copy.delete(maxPerson[0]);
+    } else if (Math.abs(minPerson[1]) === Math.abs(maxPerson[1])) {
       // 差額が-500, 500とかだった場合はそれぞれ精算
       copy.delete(minPerson[0]);
       copy.delete(maxPerson[0]);
@@ -70,7 +73,7 @@ export const dutchTreat = (state: Map<MemberName, Price>) => {
       );
     }
   }
-  log.push("精算完了！");
+  log.push("精算完了");
 
   return log;
 };
