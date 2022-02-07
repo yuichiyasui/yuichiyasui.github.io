@@ -61,7 +61,7 @@ describe("dutchTreat", () => {
     expect(result[0]).toBe("BさんからCさんに3750円渡す。");
     expect(result[1]).toBe("AさんからDさんに1250円渡す。");
     expect(result[2]).toBe("AさんからCさんに500円渡す。");
-    expect(result[3]).toBe("end");
+    expect(result[3]).toBe("精算完了");
   });
 
   test("割り勘する(差額の絶対値が同じ人がいる場合)", () => {
@@ -74,6 +74,6 @@ describe("dutchTreat", () => {
     const result = dutchTreat(state);
     expect(result[0]).toBe("AさんからCさんに2500円渡す。");
     expect(result[1]).toBe("BさんからDさんに2500円渡す。");
-    expect(result[2]).toBe("end");
+    expect(result[2]).toBe("精算完了");
   });
 });

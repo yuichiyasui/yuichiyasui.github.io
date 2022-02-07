@@ -1,7 +1,7 @@
 import { MemberName, Price } from "./DutchTreat";
 
 export const getTotalPrice = (prices: number[]): number => {
-  return prices.reduce((acc, price) => acc + price);
+  return prices.reduce((acc, price) => acc + price, 0);
 };
 
 export const getOutcomePerPerson = (
@@ -9,7 +9,7 @@ export const getOutcomePerPerson = (
 ): [average: number, surplus: number] => {
   const totalPrice = getTotalPrice(prices);
   const surplus = totalPrice % prices.length;
-  return [(totalPrice - surplus) / prices.length, surplus];
+  return [(totalPrice - surplus) / prices.length || 0, surplus || 0];
 };
 
 export const getMinMaxOutcomePersons = (
@@ -70,8 +70,7 @@ export const dutchTreat = (state: Map<MemberName, Price>) => {
       );
     }
   }
-  log.push("end");
+  log.push("精算完了！");
 
-  console.log(copy);
   return log;
 };
