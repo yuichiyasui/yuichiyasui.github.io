@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { enableMapSet } from "immer";
 import { useImmerReducer } from "use-immer";
 import { DefaultLayout } from "~/components/layouts/DefaultLayout";
+import { dutchTreat, getOutcomePerPerson, getTotalPrice } from "./functions";
 
 enableMapSet();
 
@@ -10,9 +11,13 @@ const sectionMap = {
   price: "price",
 };
 
-type MemberName = string;
-type Price = number;
+export type MemberName = string;
+export type Price = number;
 
+type SetMembers = {
+  type: "SET_MEMBERS";
+  payload: [MemberName, Price][];
+};
 type AddMember = {
   type: "ADD_MEMBER";
   payload: { name: MemberName };
@@ -30,13 +35,21 @@ type UpdateError = {
   payload: { errorMessage: string };
 };
 
-type Action = AddMember | RemoveMember | UpdateMemberPrice | UpdateError;
+type Action =
+  | SetMembers
+  | AddMember
+  | RemoveMember
+  | UpdateMemberPrice
+  | UpdateError;
 type State = {
   members: Map<MemberName, Price>;
   error: string;
 };
 const reducer = (draft: State, action: Action) => {
   switch (action.type) {
+    case "SET_MEMBERS":
+      draft.members = new Map(action.payload);
+      break;
     case "ADD_MEMBER":
       draft.members.set(action.payload.name, 0);
       break;
@@ -57,7 +70,7 @@ const initialState: State = {
   error: "",
 };
 
-export const Calculation = () => {
+export const DutchTreat = () => {
   const [state, dispatch] = useImmerReducer(reducer, initialState);
 
   const [member, setMember] = useState<string>("");
@@ -94,15 +107,37 @@ export const Calculation = () => {
     dispatch({ type: "UPDATE_MEMBER_PRICE", payload: { name, price } });
   };
 
+  // TODO: ローカルストレージに実行時の結果を保存する処理
+  // useEffect(() => {
+  //   const cache = localStorage.getItem("DUTCH_TREAT");
+  //   console.log("mount");
+  //   if (cache) {
+  //     const members = JSON.parse(cache);
+  //     dispatch({ type: "SET_MEMBERS", payload: members });
+  //     localStorage.removeItem("DUTCH_TREAT");
+  //   }
+  //   return () => {
+  //     localStorage.setItem(
+  //       "DUTCH_TREAT",
+  //       JSON.stringify(Array.from(state.members)),
+  //     );
+  //     console.log("unmount");
+  //   };
+  // }, [dispatch]);
+
   const members = Array.from(state.members).map((member) => ({
     name: member[0],
     price: member[1],
   }));
-  const totalPrice = members.reduce((acc, member) => {
-    return acc + member.price;
-  }, 0);
-  const averagePrice =
-    totalPrice && members.length ? Math.round(totalPrice / members.length) : 0;
+  const prices = members.map((member) => member.price);
+  const totalPrice = getTotalPrice(prices);
+  const [average, surplus] = getOutcomePerPerson(prices);
+
+  const [logs, setLogs] = useState<string[]>([]);
+  const executeDutchTreat = () => {
+    const result = dutchTreat(state.members);
+    setLogs(result);
+  };
 
   return (
     <DefaultLayout>
@@ -134,7 +169,6 @@ export const Calculation = () => {
               onChange={handleMember}
               className="focus:shadow-outline mb-2 w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
             />
-            <small className="block">（例）やっしー</small>
             {state.error && (
               <small className="text-red-500">{state.error}</small>
             )}
@@ -183,44 +217,78 @@ export const Calculation = () => {
       <section id={sectionMap.price} className="mb-10">
         <h2 className="mb-3 text-xl font-bold">使用金額を入力</h2>
         <p className="mb-3 text-sm">半角数字のみ入力可能です。</p>
-        {members.map((member) => {
-          return (
-            <div key={member.name} className="mb-2">
-              <p>{member.name}</p>
-              <div className="relative">
-                <span className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400">
-                  ¥
-                </span>
-                <input
-                  type="text"
-                  name="price"
-                  inputMode="decimal"
-                  value={state.members.get(member.name)}
-                  onChange={(event) => handlePrice(event, member.name)}
-                  className="focus:shadow-outline w-[100px] appearance-none rounded border py-2 pr-3 pl-5 text-right leading-tight text-gray-700 shadow focus:outline-none"
-                />
-              </div>
-            </div>
-          );
-        })}
-      </section>
-      <section>
-        <h2 className="mb-3 text-xl font-bold">計算結果</h2>
-        <p>
-          合計金額：
-          {totalPrice.toLocaleString("ja-JP", {
-            style: "currency",
-            currency: "JPY",
+        <ul className="mb-5">
+          {members.map((member) => {
+            return (
+              <li key={member.name} className="mb-2">
+                <p>{member.name}</p>
+                <div className="relative">
+                  <span className="absolute top-1/2 left-2 -translate-y-1/2 text-gray-400">
+                    ¥
+                  </span>
+                  <input
+                    type="text"
+                    name="price"
+                    inputMode="decimal"
+                    value={state.members.get(member.name)}
+                    onChange={(event) => handlePrice(event, member.name)}
+                    className="focus:shadow-outline w-[100px] appearance-none rounded border py-2 pr-3 pl-5 text-right leading-tight text-gray-700 shadow focus:outline-none"
+                  />
+                </div>
+              </li>
+            );
           })}
-        </p>
-        <p>
-          一人当たり支出額：
-          {averagePrice.toLocaleString("ja-JP", {
-            style: "currency",
-            currency: "JPY",
-          })}
-        </p>
+        </ul>
+        <button
+          type="button"
+          onClick={executeDutchTreat}
+          className="rounded bg-teal-500 py-2 px-4 text-sm font-bold text-white hover:bg-teal-700"
+        >
+          割り勘する
+        </button>
       </section>
+
+      {!!logs.length && (
+        <>
+          <section className="mb-10">
+            <h2 className="mb-3 text-xl font-bold">計算結果</h2>
+            <p>
+              合計金額：
+              {totalPrice.toLocaleString("ja-JP", {
+                style: "currency",
+                currency: "JPY",
+              })}
+            </p>
+            <p>
+              一人当たり支出額：
+              {average.toLocaleString("ja-JP", {
+                style: "currency",
+                currency: "JPY",
+              })}
+            </p>
+            <p>
+              余り：
+              {surplus.toLocaleString("ja-JP", {
+                style: "currency",
+                currency: "JPY",
+              })}
+            </p>
+          </section>
+
+          <section>
+            <h2 className="mb-3 text-xl font-bold">割り勘フロー</h2>
+            <textarea
+              rows={logs.length}
+              defaultValue={logs.reduce((acc, log, index, array) => {
+                const result = `${acc}(${index + 1}) ${log}`;
+                if (index === array.length - 1) return result;
+                return result + "\n";
+              }, "")}
+              className="focus:shadow-outline w-full appearance-none whitespace-pre-line rounded border py-2 px-3 text-gray-700 shadow focus:outline-none"
+            />
+          </section>
+        </>
+      )}
     </DefaultLayout>
   );
 };
